@@ -6,12 +6,11 @@ provider "aws" {
   secret_key = "${var.secret_key}"
 }
 
-data "aws_availability_zones" "available" {}
-
 #VPC
 
 resource "aws_vpc" "tf_vpc" {
   cidr_block = "10.1.0.0/16"
+  enable_dns_hostnames = true
 }
 
 #IGW
@@ -35,7 +34,7 @@ resource "aws_route_table" "tf_public_rt" {
   }
 }
 
-resource "aws_route_table" "tf_private_rt" {
+resource "aws_default_route_table" "tf_private_rt" {
   default_route_table_id = "${aws_vpc.tf_vpc.default_route_table_id}"
 
   tags {
@@ -88,3 +87,30 @@ resource "aws_subnet" "tf_private_subnet_2" {
     Name = "private2"
   }
 }
+
+#subnet associations
+
+resource "aws_route_table_association" "public_1_assoc" {
+  subnet_id = "${aws_subnet.tf_public_subnet_1.id}"
+  route_table_id = "${aws_route_table.tf_public_rt.id}"
+}
+
+resource "aws_route_table_association" "public_2_assoc" {
+  subnet_id = "${aws_subnet.tf_public_subnet_2.id}"
+  route_table_id = "${aws_route_table.tf_public_rt.id}"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
