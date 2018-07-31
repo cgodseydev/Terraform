@@ -190,6 +190,7 @@ resource "aws_security_group" "tf_rds_sg" {
 #RDS Instance
 
 resource "aws_db_instance" "tf_db" {
+  name = "${var.db_name}"
   allocated_storage = 20
   engine = "mysql"
   instance_class = "db.t2.micro" 

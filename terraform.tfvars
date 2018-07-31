@@ -8,3 +8,4 @@ cidrs = {
   private_subnet_2 = "10.1.4.0/24"
 }
 domain_name = "cemtechconsultants"
+db_name = "tf_db"
