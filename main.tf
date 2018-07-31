@@ -100,6 +100,53 @@ resource "aws_route_table_association" "public_2_assoc" {
   route_table_id = "${aws_route_table.tf_public_rt.id}"
 }
 
+#VPC Endpoint for S3
+
+resource "aws_vpc_endpoint" "tf_privateS3_endpoint" {
+  vpc_id = "${aws_vpc.tf_vpc.id}"
+  service_name = "com.amazonaws.${var.aws_region}.s3"
+
+  route_table_ids = ["${aws_vpc.tf_vpc.main_route_table_id}",
+    "${aws_route_table.tf_public_rt.id}"
+    ]
+
+  policy = <<POLICY
+{
+  "Statement": [
+      {
+        "Action": "*",
+        "Effect": "Allow",
+        "Resource": "*",
+        "Principle": "*"
+      }
+    ]
+}
+POLICY
+}
+
+#------ S3 Code Bucket -----
+
+resource "random_id" "tf_code_bucket" {
+  byte_length = 2
+}
+
+resource "aws_s3_bucket" "code" {
+  bucket = "${var.domain_name}-${random_id.tf_code_bucket.dec}"
+  acl = "private"
+  force_destroy = true
+
+  tags {
+    Name = "code bucket"
+  }
+}
+
+
+
+
+
+
+
+
 
 
 
