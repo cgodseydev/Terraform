@@ -9,3 +9,7 @@ cidrs = {
 }
 domain_name = "cemtechconsultants"
 db_name = "tf_db"
+key_name = "Terraform_Dev_KP"
+public_key_path = "/home/ec2-user/Terraform_Dev_KP.pem"
+dev_instance_type = "t2.micro"
+dev_ami = "ami-6871a115"

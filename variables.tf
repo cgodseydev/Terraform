@@ -13,3 +13,7 @@ variable "secret_key" {}
 variable "domain_name" {}
 variable "db_name" {}
 variable "db_password" {}
+variable "key_name" {}
+variable "public_key_path" {}
+variable "dev_instance_type" {}
+variable "dev_ami" {}
